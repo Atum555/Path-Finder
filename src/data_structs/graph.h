@@ -37,12 +37,14 @@ class Vertex {
     void setInfo(T info);
     void setVisited(bool visited);
     void setProcessing(bool processing);
-    void setDist(double dist);
+    void setDistance(double dist);
     void setPath(Edge<T, W> *path);
 
     Edge<T, W> *addEdge(Vertex<T, W> *destination, W info);
     bool        removeOutgoingEdge(Edge<T, W> *edge);
     bool        removeIncomingEdge(Edge<T, W> *edge);
+
+    friend class MutablePriorityQueue<Vertex<T, W>>;
 
   protected:
     T                         _info;
@@ -173,7 +175,7 @@ void Vertex<T, W>::setProcessing(bool processing) {
 }
 
 template <class T, class W>
-void Vertex<T, W>::setDist(double dist) {
+void Vertex<T, W>::setDistance(double dist) {
     this->_distance = dist;
 }
 

@@ -47,20 +47,24 @@ int main(int argc, char *argv[]) {
 
     // Decide hot to proceed
     switch (argc) {
-    case 3:
+    case 3: {
         // Two arguments: menu mode
         runMenu(graph);
         break;
-
-    case 4:
+    }
+    case 4: {
         // Three arguments: batch mode, with output to screen
-        runBatchMode(graph, argv[3]);
+        ifstream inputFile(argv[3]);
+        runBatchMode(graph, inputFile, cout);
         break;
-
-    case 5:
+    }
+    case 5: {
         // Four arguments: batch mode, with output to file
-        runBatchMode(graph, argv[3], argv[4]);
+        ifstream inputFile(argv[3]);
+        ofstream outputFile(argv[4]);
+        runBatchMode(graph, inputFile, outputFile);
         break;
+    }
     }
 
     return 0;

@@ -22,7 +22,6 @@ Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const
 
 void runMenu(Graph<Location, Distance> *graph);
 
-void runBatchMode(Graph<Location, Distance> *graph, const std::string &inputFile);
-void runBatchMode(Graph<Location, Distance> *graph, const std::string &inputFile, const std::string &outputFile);
+void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &outputFile);
 
 #endif

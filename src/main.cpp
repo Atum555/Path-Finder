@@ -9,19 +9,19 @@
 using namespace std;
 
 void printUsage() {
-    cout << "Usage:\n";
-    cout << "  ./program <locations.csv> <distances.csv>\n";
-    cout << "    - Runs in interactive menu mode.\n\n";
-    cout << "  ./program <locations.csv> <distances.csv> <input.txt>\n";
-    cout << "    - Runs in batch mode, output to console.\n\n";
-    cout << "  ./program <locations.csv> <distances.csv> <input.txt> <output.txt>\n";
-    cout << "    - Runs in batch mode, output to file.\n";
+    cout << "Usage:" << endl;
+    cout << "  ./program <locations.csv> <distances.csv>" << endl;
+    cout << "    - Runs in interactive menu mode." << endl << endl;
+    cout << "  ./program <locations.csv> <distances.csv> <input.txt>" << endl;
+    cout << "    - Runs in batch mode, output to console." << endl << endl;
+    cout << "  ./program <locations.csv> <distances.csv> <input.txt> <output.txt>" << endl;
+    cout << "    - Runs in batch mode, output to file." << endl;
 }
 
 int main(int argc, char *argv[]) {
     // Check Number of Arguments
     if (argc < 3 || argc > 5) {
-        cout << "Error: Invalid number of arguments.\n";
+        cout << "Error: Invalid number of arguments." << endl;
         printUsage();
         return 1;
     }
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     ifstream distFile(argv[2]);
 
     if (!locFile.is_open() || !distFile.is_open()) {
-        cout << "Error: Couldn't open the files.\n";
+        cout << "Error: Couldn't open the files." << endl;
         return 1;
     }
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
     // Check if parsing was successful
     if (graph == nullptr) {
-        cout << "Error: Couldn't parse correctly.\n";
+        cout << "Error: Couldn't parse correctly." << endl;
         printUsage();
         return 1;
     }

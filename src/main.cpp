@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 
 #include "data_structs/distance.h"
@@ -7,33 +8,60 @@
 
 using namespace std;
 
+void printUsage() {
+    cout << "Usage:\n";
+    cout << "  ./program <locations.csv> <distances.csv>\n";
+    cout << "    - Runs in interactive menu mode.\n\n";
+    cout << "  ./program <locations.csv> <distances.csv> <input.txt>\n";
+    cout << "    - Runs in batch mode, output to console.\n\n";
+    cout << "  ./program <locations.csv> <distances.csv> <input.txt> <output.txt>\n";
+    cout << "    - Runs in batch mode, output to file.\n";
+}
+
 int main(int argc, char *argv[]) {
-    // TODO
-    //  - Parse arguments
-    //  - Call function to parse data files
-    //  - Call execution code
-
-
-    //! EXAMPLE TEST CODE
-    Graph<Location, Distance> *g;
-
-    ifstream locationsFile("../data/Locations.csv");
-    ifstream distancesFile("../data/Distances.csv");
-
-    g = parseDataFiles(locationsFile, distancesFile);
-
-    if (g == nullptr) {
-        cout << "Nullptr" << endl;
+    // Check Number of Arguments
+    if (argc < 3 || argc > 5) {
+        cout << "Error: Invalid number of arguments.\n";
+        printUsage();
         return 1;
     }
 
-    cout << "Graph:" << endl;
+    // Open Data Files
+    ifstream locFile(argv[1]);
+    ifstream distFile(argv[2]);
 
-    for (Vertex<Location, Distance> *v : g->getVertexSet()) {
-        cout << v->getInfo().getCode() << ":" << endl;
-        for (Edge<Location, Distance> *e : v->getOutgoing())
-            cout << "  -> " << e->getDestination()->getInfo().getCode() << " d:" << e->getInfo().getDriving()
-                 << " w:" << e->getInfo().getWalking() << endl;
-        cout << endl;
+    if (!locFile.is_open() || !distFile.is_open()) {
+        cout << "Error: Couldn't open the files.\n";
+        return 1;
     }
+
+    // Make the graph
+    Graph<Location, Distance> *graph = parseDataFiles(locFile, distFile);
+
+    // Check if parsing was successful
+    if (graph == nullptr) {
+        cout << "Error: Couldn't parse correctly.\n";
+        printUsage();
+        return 1;
+    }
+
+    // Decide hot to proceed
+    switch (argc) {
+    case 3:
+        // Two arguments: menu mode
+        runMenu(graph);
+        break;
+
+    case 4:
+        // Three arguments: batch mode, with output to screen
+        runBatchMode(graph, argv[3]);
+        break;
+
+    case 5:
+        // Four arguments: batch mode, with output to file
+        runBatchMode(graph, argv[3], argv[4]);
+        break;
+    }
+
+    return 0;
 }

@@ -20,4 +20,9 @@ Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, int id)
 
 Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const std::string &code);
 
+void runMenu(Graph<Location, Distance> *graph);
+
+void runBatchMode(Graph<Location, Distance> *graph, const std::string &inputFile);
+void runBatchMode(Graph<Location, Distance> *graph, const std::string &inputFile, const std::string &outputFile);
+
 #endif

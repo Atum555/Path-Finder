@@ -8,7 +8,7 @@
 #define leftChild(i) ((i) * 2)
 
 /**
- * class T must have: (i) accessible field int queueIndex; (ii) operator< defined.
+ * class T must have: (i) accessible field int _queueIndex; (ii) operator< defined.
  */
 
 template <class T>
@@ -47,7 +47,7 @@ T *PriorityQueue<T>::extractMin() {
     _heap[1] = _heap.back();
     _heap.pop_back();
     if (_heap.size() > 1) heapifyDown(1);
-    x->queueIndex = 0;
+    x->_queueIndex = 0;
     return x;
 }
 
@@ -59,7 +59,7 @@ void PriorityQueue<T>::insert(T *x) {
 
 template <class T>
 void PriorityQueue<T>::decreaseKey(T *x) {
-    heapifyUp(x->queueIndex);
+    heapifyUp(x->_queueIndex);
 }
 
 template <class T>
@@ -89,7 +89,7 @@ void PriorityQueue<T>::heapifyDown(unsigned i) {
 template <class T>
 void PriorityQueue<T>::set(unsigned i, T *x) {
     _heap[i]      = x;
-    x->queueIndex = i;
+    x->_queueIndex = i;
 }
 
 #endif /* __PRIORITY_QUEUE__ */

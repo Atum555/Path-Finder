@@ -10,6 +10,8 @@
 #include <queue>
 #include <vector>
 
+#include "priorityQueue.h"
+
 template <class T, class W>
 class Vertex;
 template <class T, class W>
@@ -44,7 +46,7 @@ class Vertex {
     bool        removeOutgoingEdge(Edge<T, W> *edge);
     bool        removeIncomingEdge(Edge<T, W> *edge);
 
-    friend class MutablePriorityQueue<Vertex<T, W>>;
+    friend class PriorityQueue<Vertex<T, W>>;
 
   protected:
     T                         _info;
@@ -121,7 +123,7 @@ Vertex<T, W>::~Vertex() {
 
 template <class T, class W>
 bool Vertex<T, W>::operator<(Vertex<T, W> &vertex) const {
-    return this->dist < vertex.dist;
+    return this->_distance < vertex._distance;
 }
 
 template <class T, class W>

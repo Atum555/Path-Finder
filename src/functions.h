@@ -46,4 +46,10 @@ Path findShortestPathForDrivingMultipleNodes(
     const std::vector<Edge<Location, Distance> *>   &edgesToAvoid
 );
 
+std::pair<Path, Path> findPathForDrivingWalking(
+    Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,
+    const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
+    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, const double maxWalkingTime
+);
+
 #endif

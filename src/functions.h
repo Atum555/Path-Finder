@@ -26,6 +26,8 @@ Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, int id)
 
 Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const std::string &code);
 
+Edge<Location, Distance> *findEdgeById(Graph<Location, Distance> *g, int sourceId, int destinationId);
+
 void runMenu(Graph<Location, Distance> *graph);
 
 void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &outputFile);

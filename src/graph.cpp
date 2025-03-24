@@ -17,3 +17,13 @@ Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const
         if (v->getInfo().getCode() == code) return v;
     return nullptr;
 }
+
+Edge<Location, Distance> *findEdgeById(Graph<Location, Distance> *g, int sourceId, int destinationId) {
+    Vertex<Location, Distance> *source      = findVertexById(g, sourceId);
+    Vertex<Location, Distance> *destination = findVertexById(g, destinationId);
+
+    for (Edge<Location, Distance> *edge : source->getOutgoing())
+        if (edge->getDestination() == destination) return edge;
+
+    return nullptr;
+}

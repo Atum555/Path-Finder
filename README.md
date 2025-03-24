@@ -20,14 +20,32 @@
 
     -   Must include Time Complexity for algorithms
 
--   Route planning - Driving mode
+-   Route planning - Driving mode - No restrictions
 
     -   2 Independent paths for driving
-    -   Restricted route planning
 
-        -   Exclude nodes
-        -   Exclude segments
-        -   Include a node (a stop on the way)
+    -   Parse input
+
+    ```
+    Mode:driving
+    Source:<id>
+    Destination:<id>
+    ```
+
+    -   Print output
+
+    ```
+    Source:<id>
+    Destination:<id>
+    BestDrivingRoute:<id>,<id>,<id>(<int>)
+    AlternativeDrivingRoute:<id>,<id>,<id>({total time})
+    ```
+
+-   Route planning - Driving mode - Restrictions
+
+    -   Exclude nodes
+    -   Exclude segments
+    -   Include a node (a stop on the way)
 
     -   Parse input
 
@@ -69,9 +87,9 @@
     ```
     Source:<id>
     Destination:<id>
-    DrivingRoute:<id>,<id>,<id>(<int>)
+    DrivingRoute:<id>,<id>,<id>({total time})
     ParkingNode:<id>
-    WalkingRoute:<id>,<id>,<id>(<int>)
+    WalkingRoute:<id>,<id>,<id>({total time})
     TotalTime:<int>
     ```
 
@@ -92,13 +110,13 @@
     ```
     Source<id>
     Destination:<id>
-    DrivingRoute1:<id>,<id>,<id>(<int>)
+    DrivingRoute1:<id>,<id>,<id>({total time})
     ParkingNode1:<id>
-    WalkingRoute1:<id>,<id>,<id>(<int>)
+    WalkingRoute1:<id>,<id>,<id>({total time})
     TotalTime1:<int>
-    DrivingRoute2:<id>,<id>,<id>(<int>)
+    DrivingRoute2:<id>,<id>,<id>({total time})
     ParkingNode2:<id>
-    WalkingRoute2:<id>,<id>,<id>(<int>)
+    WalkingRoute2:<id>,<id>,<id>({total time})
     TotalTime2:<int>
     ```
 

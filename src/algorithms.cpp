@@ -160,6 +160,8 @@ pair<Path, Path> findPathForDrivingWalking(
             for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
                 if (itr->vertex == v) {
                     itr->walkingPath = getPath(end, v, walking);
+
+                    // Reverse path so that it can be added to drivingPath
                     reverse(itr->walkingPath.nodes.begin(), itr->walkingPath.nodes.end());
                 }
             }
@@ -197,9 +199,11 @@ pair<Path, Path> findPathForDrivingWalking(
         }
     }
 
-    // Calculate totalDistances
+    // Calculate totalPath for each node
     for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
+        // If walkingPath distance bigger than maxWalkingTime, ignore
         if (itr->walkingPath.distance > maxWalkingTime) continue;
+
         itr->totalPath += itr->drivingPath;
         itr->totalPath += itr->walkingPath;
     }

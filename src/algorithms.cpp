@@ -92,3 +92,17 @@ Path findShortestPathForDriving(
 
     return getPath(start, end, EdgeType::driving);
 }
+
+Path findShortestPathForDrivingMultipleNodes(
+    Graph<Location, Distance> *g, const vector<Vertex<Location, Distance> *> nodesToConnect,
+    const vector<Vertex<Location, Distance> *> &nodesToAvoid, const vector<Edge<Location, Distance> *> &edgesToAvoid
+) {
+    // Initialize path
+    Path path;
+
+    // Add paths between every 2 subsequent nodes
+    for (auto itr = nodesToConnect.begin(); itr != nodesToConnect.end() - 1; itr++)
+        path += findShortestPathForDriving(g, *itr, *(itr + 1), nodesToAvoid, edgesToAvoid);
+
+    return path;
+}

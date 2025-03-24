@@ -168,6 +168,18 @@ pair<Path, Path> findPathForDrivingWalking(
         }
     }
 
+    bool isPossible = false;
+    // Check if there are walking paths smaller than maxWalkingPath
+    for(auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
+        if(itr->walkingPath.distance < maxWalkingTime) {
+            isPossible = true;
+            break;
+        }
+    }  
+
+    // If there aren't any walking paths smaller than maxWalkingPath, return empty path
+    if(not isPossible) return pair{Path(), Path()};
+
     // Apply Dijkstra from the start node, taking into account the driving time
 
     // Prepare graph

@@ -40,4 +40,10 @@ Path findShortestPathForDriving(
     const std::vector<Edge<Location, Distance> *>   &edgesToAvoid
 );
 
+Path findShortestPathForDrivingMultipleNodes(
+    Graph<Location, Distance> *g, const std::vector<Vertex<Location, Distance> *> nodesToConnect,
+    const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
+    const std::vector<Edge<Location, Distance> *>   &edgesToAvoid
+);
+
 #endif

@@ -12,6 +12,8 @@
 struct Path {
     std::vector<Vertex<Location, Distance> *> nodes;
     double                                    distance = 0;
+
+    Path &operator+=(const Path &other);
 };
 
 void ltrim(std::string &s);

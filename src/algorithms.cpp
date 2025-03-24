@@ -10,11 +10,11 @@ using namespace std;
 
 enum EdgeType { driving, walking };
 
-struct NodeInfo {
-    Vertex<Location, Distance> *vertex;
+struct PossiblePath {
+    Vertex<Location, Distance> *parkingNode;
     Path                        drivingPath;
     Path                        walkingPath;
-    Path                        totalPath;
+    Path                        completePath;
 };
 
 bool relaxEdge(Edge<Location, Distance> *edge, EdgeType type) {
@@ -116,23 +116,11 @@ Path findShortestPathForDrivingMultipleNodes(
 
 pair<Path, Path> findPathForDrivingWalking(
     Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,
-    const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
-    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, const double maxWalkingTime
+    const vector<Vertex<Location, Distance> *> &nodesToAvoid, const vector<Edge<Location, Distance> *> &edgesToAvoid,
+    const double maxWalkingTime
 ) {
     // Initialize vector to save node info for each node
-    vector<NodeInfo> nodeInfos;
-
-    // Add info for each vertex
-    for (Vertex<Location, Distance> *v : g->getVertexSet()) {
-        NodeInfo nodeInfo = {
-            v, { {}, 0 },
-             { {}, 0 }
-        };
-        nodeInfos.push_back(nodeInfo);
-    }
-
-
-    // Apply Dijkstra from the end node, taking into account the walking time
+    vector<PossiblePath> possiblePaths;
 
     // Prepare graph
     // Clear distance and path values
@@ -144,43 +132,30 @@ pair<Path, Path> findPathForDrivingWalking(
     end->setDistance(0);
     for (Vertex<Location, Distance> *v : g->getVertexSet()) queue.insert(v);
 
-    // Dijkstra
+    // Apply Dijkstra from the end node, taking into account the walking time
     while (not queue.empty())
         for (Edge<Location, Distance> *e : queue.extractMin()->getOutgoing())
             if (relaxEdge(e, EdgeType::walking)) queue.decreaseKey(e->getDestination());
 
-    // For each node
+    // Update possible path list
     for (Vertex<Location, Distance> *v : g->getVertexSet()) {
         // If start node or end node, ignore
-        if (v == start || v == end) continue;
+        if (v == start or v == end) continue;
 
-        // If node has a parking space
-        if (v->getInfo().hasParking()) {
-            // Update nodeInfos
-            for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
-                if (itr->vertex == v) {
-                    itr->walkingPath = getPath(end, v, walking);
-
-                    // Reverse path so that it can be added to drivingPath
-                    reverse(itr->walkingPath.nodes.begin(), itr->walkingPath.nodes.end());
-                }
-            }
+        // Create a possible path from nodes with parking,
+        // that have a walking path to the end node
+        // with a distance smaller or equal to the max walking distance
+        if (v->getInfo().hasParking() and v->getPath() != nullptr) {
+            PossiblePath possiblePath;
+            possiblePath.parkingNode = v;
+            possiblePath.walkingPath = getPath(end, v, EdgeType::walking);
+            reverse(possiblePath.walkingPath.nodes.begin(), possiblePath.walkingPath.nodes.end());
+            possiblePaths.push_back(possiblePath);
         }
     }
 
-    bool isPossible = false;
-    // Check if there are walking paths smaller than maxWalkingPath
-    for(auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
-        if(itr->walkingPath.distance < maxWalkingTime) {
-            isPossible = true;
-            break;
-        }
-    }  
-
-    // If there aren't any walking paths smaller than maxWalkingPath, return empty path
-    if(not isPossible) return pair{Path(), Path()};
-
-    // Apply Dijkstra from the start node, taking into account the driving time
+    // If no possible paths exist stop searching
+    if (possiblePaths.empty()) return pair{ Path(), Path() };
 
     // Prepare graph
     // Clear distance and path values
@@ -192,41 +167,43 @@ pair<Path, Path> findPathForDrivingWalking(
     start->setDistance(0);
     for (Vertex<Location, Distance> *v : g->getVertexSet()) queue.insert(v);
 
-    // Dijkstra
+    // Apply Dijkstra from the start node, taking into account the driving time
     while (not queue.empty())
         for (Edge<Location, Distance> *e : queue.extractMin()->getOutgoing())
             if (relaxEdge(e, EdgeType::driving)) queue.decreaseKey(e->getDestination());
 
-    // For each node
-    for (Vertex<Location, Distance> *v : g->getVertexSet()) {
-        // If start node or end node, ignore
-        if (v == start || v == end) continue;
+    // Update possible path list with driving paths
+    auto it = possiblePaths.begin();
+    while (it != possiblePaths.end()) {
+        Vertex<Location, Distance> *parkingNode = (*it).parkingNode;
 
-        // If node has a parking space
-        if (v->getInfo().hasParking()) {
-            // Update nodeInfos
-            for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
-                if (itr->vertex == v) itr->drivingPath = getPath(start, v, driving);
-            }
+        // Remove paths that don't connect to the start node
+        if (parkingNode->getPath() == nullptr) {
+            it = possiblePaths.erase(it);
+            continue;
         }
+
+        // Add Driving path
+        (*it).drivingPath = getPath(start, parkingNode, EdgeType::driving);
+
+        // Calculate complete path
+        (*it).completePath += (*it).drivingPath;
+        (*it).completePath += (*it).walkingPath;
+        it++;
     }
 
-    // Calculate totalPath for each node
-    for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
-        // If walkingPath distance bigger than maxWalkingTime, ignore
-        if (itr->walkingPath.distance > maxWalkingTime) continue;
+    // If no possible paths exist stop searching
+    if (possiblePaths.empty()) return pair{ Path(), Path() };
 
-        itr->totalPath += itr->drivingPath;
-        itr->totalPath += itr->walkingPath;
-    }
+    PossiblePath bestPath = possiblePaths.front();
 
-    NodeInfo bestPath;
-    bestPath.totalPath.distance = INF;
-
-    // Check minDistance
-    for (auto itr = nodeInfos.begin(); itr != nodeInfos.end(); itr++) {
-        if (itr->totalPath.distance < bestPath.totalPath.distance and itr->totalPath.distance != 0) bestPath = *itr;
-    }
+    // Get best path
+    // Smallest total distance
+    // Or in case of equal total distance, largest walking distance
+    for (auto it = possiblePaths.begin() + 1; it != possiblePaths.end(); it++)
+        if ((*it).completePath.distance < bestPath.completePath.distance) bestPath = *it;
+        else if ((*it).completePath.distance == bestPath.completePath.distance)
+            if ((*it).walkingPath.distance > bestPath.walkingPath.distance) bestPath = *it;
 
     return pair{ bestPath.drivingPath, bestPath.walkingPath };
 }

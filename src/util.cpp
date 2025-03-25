@@ -5,17 +5,20 @@
 
 using namespace std;
 
-void ltrim(string &s) {
+string &ltrim(string &s) {
     s.erase(s.begin(), find_if(s.begin(), s.end(), [](unsigned char ch) { return !isspace(ch); }));
+    return s;
 }
 
-void rtrim(string &s) {
+string &rtrim(string &s) {
     s.erase(find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), s.end());
+    return s;
 }
 
-void trim(string &s) {
+string &trim(string &s) {
     ltrim(s);
     rtrim(s);
+    return s;
 }
 
 Path &Path::operator+=(const Path &other) {

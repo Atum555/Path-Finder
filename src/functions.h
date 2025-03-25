@@ -16,11 +16,11 @@ struct Path {
     Path &operator+=(const Path &other);
 };
 
-void ltrim(std::string &s);
+std::string &ltrim(std::string &s);
 
-void rtrim(std::string &s);
+std::string &rtrim(std::string &s);
 
-void trim(std::string &s);
+std::string &trim(std::string &s);
 
 Graph<Location, Distance> *parseDataFiles(std::ifstream &locations, std::ifstream &distances);
 

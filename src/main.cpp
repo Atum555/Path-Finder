@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     switch (argc) {
     case 3: {
         // Two arguments: menu mode
-        runMenu(graph);
+        runMenuMode(graph);
         break;
     }
     case 4: {

@@ -31,7 +31,7 @@ Vertex<Location, Distance> *findVertex(Graph<Location, Distance> *g, const std::
 Edge<Location, Distance> *
 findEdge(Graph<Location, Distance> *g, const std::string &sourceId, const std::string &destinationId);
 
-void runMenu(Graph<Location, Distance> *graph);
+void runMenuMode(Graph<Location, Distance> *graph);
 
 void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &out);
 

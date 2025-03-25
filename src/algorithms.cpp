@@ -53,7 +53,10 @@ void prepareGraph(
     }
 
     // Remove forbidden edges from search
-    for (Edge<Location, Distance> *e : edgesToAvoid) e->setSelected(false);
+    for (Edge<Location, Distance> *e : edgesToAvoid) {
+        e->setSelected(false);
+        e->getReverse()->setSelected(false);
+    }
 }
 
 Path getPath(Vertex<Location, Distance> *start, Vertex<Location, Distance> *end, EdgeType type) {

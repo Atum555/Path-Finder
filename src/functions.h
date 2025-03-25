@@ -24,11 +24,12 @@ void trim(std::string &s);
 
 Graph<Location, Distance> *parseDataFiles(std::ifstream &locations, std::ifstream &distances);
 
-Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, int id);
+Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, const std::string &id);
 
 Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const std::string &code);
 
-Edge<Location, Distance> *findEdgeById(Graph<Location, Distance> *g, int sourceId, int destinationId);
+Edge<Location, Distance> *
+findEdgeById(Graph<Location, Distance> *g, const std::string &sourceId, const std::string &destinationId);
 
 void runMenu(Graph<Location, Distance> *graph);
 

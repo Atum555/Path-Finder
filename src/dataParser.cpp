@@ -19,7 +19,7 @@ Graph<Location, Distance> *parseDataFiles(ifstream &locations, ifstream &distanc
 
     getline(locations, line); // Ignore first line
 
-    int    id;
+    string id;
     string code;
     string location;
     bool   parking;
@@ -33,9 +33,8 @@ Graph<Location, Distance> *parseDataFiles(ifstream &locations, ifstream &distanc
         trim(location);
 
         // Read Id
-        getline(lineSS, token, ',');
-        trim(token);
-        id = stoi(token);
+        getline(lineSS, id, ',');
+        trim(id);
 
         // Read Code
         getline(lineSS, code, ',');

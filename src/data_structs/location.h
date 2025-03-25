@@ -5,10 +5,10 @@
 
 class Location {
   public:
-    Location(int id, std::string code, std::string location, bool parking)
+    Location(const std::string &id, const std::string &code, const std::string &location, bool parking)
         : _id(id), _code(code), _location(location), _parking(parking) {}
 
-    int getId() const { return this->_id; }
+    std::string getId() const { return this->_id; }
 
     std::string getCode() const { return this->_code; }
 
@@ -17,7 +17,7 @@ class Location {
     bool hasParking() const { return this->_parking; }
 
   protected:
-    int         _id;
+    std::string _id;
     std::string _code;
     std::string _location;
     bool        _parking;

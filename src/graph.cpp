@@ -3,10 +3,11 @@
 #include "data_structs/distance.h"
 #include "data_structs/graph.h"
 #include "data_structs/location.h"
+#include "functions.h"
 
 using namespace std;
 
-Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, int id) {
+Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, const string &id) {
     for (Vertex<Location, Distance> *v : g->getVertexSet())
         if (v->getInfo().getId() == id) return v;
     return nullptr;
@@ -18,7 +19,8 @@ Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const
     return nullptr;
 }
 
-Edge<Location, Distance> *findEdgeById(Graph<Location, Distance> *g, int sourceId, int destinationId) {
+Edge<Location, Distance> *
+findEdgeById(Graph<Location, Distance> *g, const string &sourceId, const string &destinationId) {
     Vertex<Location, Distance> *source      = findVertexById(g, sourceId);
     Vertex<Location, Distance> *destination = findVertexById(g, destinationId);
 

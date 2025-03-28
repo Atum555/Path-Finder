@@ -81,8 +81,8 @@ Graph<Location, Distance> *parseDataFiles(ifstream &locations, ifstream &distanc
         walking = stod(token);
 
         // Get Nodes
-        Vertex<Location, Distance> *v1 = findVertexByCode(graph, code1);
-        Vertex<Location, Distance> *v2 = findVertexByCode(graph, code2);
+        Vertex<Location, Distance> *v1 = findVertex(graph, code1);
+        Vertex<Location, Distance> *v2 = findVertex(graph, code2);
 
         // Add Edge to Graph
         graph->addBidirectionalEdge(v1, v2, Distance(walking, driving));

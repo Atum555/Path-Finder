@@ -192,6 +192,7 @@ void Vertex<T, W>::setPath(Edge<T, W> *path) {
  */
 template <class T, class W>
 Edge<T, W> *Vertex<T, W>::addEdge(Vertex<T, W> *destination, W info) {
+    if (destination == nullptr) return nullptr;
     Edge<T, W> *newEdge = new Edge<T, W>(this, destination, info);
     this->_outgoing.push_back(newEdge);
     destination->_incoming.push_back(newEdge);

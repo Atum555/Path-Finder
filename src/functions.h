@@ -24,27 +24,25 @@ std::string &trim(std::string &s);
 
 Graph<Location, Distance> *parseDataFiles(std::ifstream &locations, std::ifstream &distances);
 
-Vertex<Location, Distance> *findVertexById(Graph<Location, Distance> *g, const std::string &id);
-
-Vertex<Location, Distance> *findVertexByCode(Graph<Location, Distance> *g, const std::string &code);
+Vertex<Location, Distance> *findVertex(Graph<Location, Distance> *g, const std::string &identifier);
 
 Edge<Location, Distance> *
-findEdgeById(Graph<Location, Distance> *g, const std::string &sourceId, const std::string &destinationId);
+findEdge(Graph<Location, Distance> *g, const std::string &sourceId, const std::string &destinationId);
 
 void runMenu(Graph<Location, Distance> *graph);
 
 void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &outputFile);
 
-Path findShortestPathForDriving(
+Path findShortestPath(
     Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,
     const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
-    const std::vector<Edge<Location, Distance> *>   &edgesToAvoid
+    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, bool driving
 );
 
-Path findShortestPathForDrivingMultipleNodes(
+Path findShortestPathMultipleNodes(
     Graph<Location, Distance> *g, const std::vector<Vertex<Location, Distance> *> nodesToConnect,
     const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
-    const std::vector<Edge<Location, Distance> *>   &edgesToAvoid
+    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, bool driving
 );
 
 std::pair<Path, Path> findPathForDrivingWalking(

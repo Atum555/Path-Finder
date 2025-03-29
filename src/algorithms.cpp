@@ -236,7 +236,7 @@ pair<Path, Path> findPathForDrivingWalking(
              Path{ {}, INF }
         };
 
-        // Get best path
+        // Get second best path
         // Smallest total distance
         // Or in case of equal total distance, largest walking distance
         for (auto it = possiblePaths.begin(); it != possiblePaths.end(); it++) {

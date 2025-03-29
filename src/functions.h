@@ -14,6 +14,8 @@ struct Path {
     double                                    distance = 0;
 
     Path &operator+=(const Path &other);
+
+    bool operator==(const Path &other) const;
 };
 
 std::string &ltrim(std::string &s);
@@ -48,7 +50,7 @@ Path findShortestPathMultipleNodes(
 std::pair<Path, Path> findPathForDrivingWalking(
     Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,
     const std::vector<Vertex<Location, Distance> *> &nodesToAvoid,
-    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, const double maxWalkingTime
+    const std::vector<Edge<Location, Distance> *> &edgesToAvoid, const double maxWalkingTime, const bool secondBest
 );
 
 #endif

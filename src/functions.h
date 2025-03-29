@@ -33,7 +33,7 @@ findEdge(Graph<Location, Distance> *g, const std::string &sourceId, const std::s
 
 void runMenu(Graph<Location, Distance> *graph);
 
-void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &outputFile);
+void runBatchMode(Graph<Location, Distance> *graph, std::ifstream &inputFile, std::ostream &out);
 
 Path findShortestPath(
     Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,

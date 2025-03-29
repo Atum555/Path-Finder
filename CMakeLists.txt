@@ -4,4 +4,11 @@ project(DA_Project)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(da_project src/main.cpp src/graph.cpp src/util.cpp src/dataParser.cpp src/algorithms.cpp)
+add_executable(da_project
+    src/main.cpp
+    src/graph.cpp
+    src/util.cpp
+    src/dataParser.cpp
+    src/algorithms.cpp
+    src/batchMode.cpp
+)

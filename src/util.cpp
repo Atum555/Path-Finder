@@ -39,3 +39,7 @@ Path &Path::operator+=(const Path &other) {
 
     return *this;
 }
+
+bool Path::operator==(const Path &other) const {
+    return (this->nodes == other.nodes) and (this->distance == other.distance);
+}

@@ -15,6 +15,10 @@ struct PossiblePath {
     Path                        completePath;
 };
 
+bool operator==(const PossiblePath &path1, const PossiblePath &path2) {
+    return (path1.walkingPath == path2.walkingPath) and (path1.drivingPath == path2.drivingPath);
+}
+
 bool relaxEdge(Edge<Location, Distance> *edge, bool driving) {
     // Sanity check
     if (edge == nullptr) return false;
@@ -133,7 +137,7 @@ Path findShortestPathMultipleNodes(
 pair<Path, Path> findPathForDrivingWalking(
     Graph<Location, Distance> *g, Vertex<Location, Distance> *start, Vertex<Location, Distance> *end,
     const vector<Vertex<Location, Distance> *> &nodesToAvoid, const vector<Edge<Location, Distance> *> &edgesToAvoid,
-    const double maxWalkingTime
+    const double maxWalkingTime, const bool secondBest
 ) {
     // Sanity check
     if (g == nullptr or start == nullptr or end == nullptr) return pair{ Path(), Path() };
@@ -169,7 +173,7 @@ pair<Path, Path> findPathForDrivingWalking(
             possiblePath.parkingNode = v;
             possiblePath.walkingPath = getPath(end, v);
             reverse(possiblePath.walkingPath.nodes.begin(), possiblePath.walkingPath.nodes.end());
-            possiblePaths.push_back(possiblePath);
+            if (possiblePath.walkingPath.distance <= maxWalkingTime) possiblePaths.push_back(possiblePath);
         }
     }
 
@@ -223,6 +227,26 @@ pair<Path, Path> findPathForDrivingWalking(
         if ((*it).completePath.distance < bestPath.completePath.distance) bestPath = *it;
         else if ((*it).completePath.distance == bestPath.completePath.distance)
             if ((*it).walkingPath.distance > bestPath.walkingPath.distance) bestPath = *it;
+
+    // If we want the second best path
+    if (secondBest) {
+        PossiblePath secondBestPath = PossiblePath{
+            nullptr, Path{ {}, INF },
+             Path{ {}, INF },
+             Path{ {}, INF }
+        };
+
+        // Get best path
+        // Smallest total distance
+        // Or in case of equal total distance, largest walking distance
+        for (auto it = possiblePaths.begin(); it != possiblePaths.end(); it++) {
+            if ((*it) == bestPath) continue;
+            if ((*it).completePath.distance < secondBestPath.completePath.distance) secondBestPath = *it;
+            else if ((*it).completePath.distance == secondBestPath.completePath.distance)
+                if ((*it).walkingPath.distance > secondBestPath.walkingPath.distance) secondBestPath = *it;
+        }
+        return pair{ secondBestPath.drivingPath, secondBestPath.walkingPath };
+    }
 
     return pair{ bestPath.drivingPath, bestPath.walkingPath };
 }

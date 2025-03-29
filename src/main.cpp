@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     ifstream distFile(argv[2]);
 
     if (!locFile.is_open() || !distFile.is_open()) {
-        cout << "Error: Couldn't open the files." << endl;
+        cout << "Error: Couldn't open data files." << endl;
         return 1;
     }
 
@@ -55,6 +55,10 @@ int main(int argc, char *argv[]) {
     case 4: {
         // Three arguments: batch mode, with output to screen
         ifstream inputFile(argv[3]);
+        if (!inputFile.is_open()) {
+            cout << "Error: Couldn't open input file." << endl;
+            return 1;
+        }
         runBatchMode(graph, inputFile, cout);
         break;
     }
@@ -62,7 +66,16 @@ int main(int argc, char *argv[]) {
         // Four arguments: batch mode, with output to file
         ifstream inputFile(argv[3]);
         ofstream outputFile(argv[4]);
+        if (!inputFile.is_open()) {
+            cout << "Error: Couldn't open input file." << endl;
+            return 1;
+        }
+        if (!outputFile.is_open()) {
+            cout << "Error: Couldn't open output file." << endl;
+            return 1;
+        }
         runBatchMode(graph, inputFile, outputFile);
+        cout << "All done!" << endl;
         break;
     }
     }

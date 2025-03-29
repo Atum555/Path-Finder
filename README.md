@@ -98,9 +98,9 @@
     ```
     Source:<id>
     Destination:<id>
-    DrivingRoute:none
-    ParkingNode:none
-    WalkingRoute:none
+    DrivingRoute:
+    ParkingNode:
+    WalkingRoute:
     TotalTime:
     Message:<string>
     ```

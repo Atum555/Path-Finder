@@ -37,8 +37,8 @@ bool relaxEdge(Edge<Location, Distance> *edge, bool driving) {
 }
 
 void prepareGraph(
-    Graph<Location, Distance> *g, const vector<Vertex<Location, Distance> *> &nodesToAvoid,
-    const vector<Edge<Location, Distance> *> &edgesToAvoid
+    Graph<Location, Distance> *g, const vector<Vertex<Location, Distance> *> &nodesToInclude,
+    const vector<Vertex<Location, Distance> *> &nodesToAvoid, const vector<Edge<Location, Distance> *> &edgesToAvoid
 ) {
     // Sanity check
     if (g == nullptr) return;
@@ -56,6 +56,7 @@ void prepareGraph(
     // Remove edges connecting to forbidden nodes from search
     for (Vertex<Location, Distance> *v : nodesToAvoid) {
         if (v == nullptr) continue; // Sanity check
+        if (find(nodesToInclude.begin(), nodesToInclude.end(), v) != nodesToInclude.end()) continue;
         for (Edge<Location, Distance> *e : v->getOutgoing()) e->setSelected(false);
         for (Edge<Location, Distance> *e : v->getIncoming()) e->setSelected(false);
     }
@@ -98,7 +99,7 @@ Path findShortestPath(
     // Prepare graph
     // Clear distance and path values
     // Select edges
-    prepareGraph(g, nodesToAvoid, edgesToAvoid);
+    prepareGraph(g, { start, end }, nodesToAvoid, edgesToAvoid);
 
     // Init Priority Queue
     PriorityQueue<Vertex<Location, Distance>> queue;
@@ -127,8 +128,11 @@ Path findShortestPathMultipleNodes(
     Path path;
 
     // Add paths between every 2 subsequent nodes
-    for (auto itr = nodesToConnect.begin(); itr != nodesToConnect.end() - 1; itr++)
-        path += findShortestPath(g, *itr, *(itr + 1), nodesToAvoid, edgesToAvoid, driving);
+    for (auto itr = nodesToConnect.begin(); itr != nodesToConnect.end() - 1; itr++) {
+        Path subPath = findShortestPath(g, *itr, *(itr + 1), nodesToAvoid, edgesToAvoid, driving);
+        if (subPath.nodes.size() == 0) return Path();
+        path += subPath;
+    }
 
 
     return path;
@@ -148,7 +152,7 @@ pair<Path, Path> findPathForDrivingWalking(
     // Prepare graph
     // Clear distance and path values
     // Select edges
-    prepareGraph(g, nodesToAvoid, edgesToAvoid);
+    prepareGraph(g, { start, end }, nodesToAvoid, edgesToAvoid);
 
     // Init Priority Queue
     PriorityQueue<Vertex<Location, Distance>> queue;
@@ -183,7 +187,7 @@ pair<Path, Path> findPathForDrivingWalking(
     // Prepare graph
     // Clear distance and path values
     // Select edges
-    prepareGraph(g, nodesToAvoid, edgesToAvoid);
+    prepareGraph(g, { start, end }, nodesToAvoid, edgesToAvoid);
 
     // Init Priority Queue
     queue = PriorityQueue<Vertex<Location, Distance>>();
@@ -236,7 +240,7 @@ pair<Path, Path> findPathForDrivingWalking(
              Path{ {}, INF }
         };
 
-        // Get best path
+        // Get second best path
         // Smallest total distance
         // Or in case of equal total distance, largest walking distance
         for (auto it = possiblePaths.begin(); it != possiblePaths.end(); it++) {

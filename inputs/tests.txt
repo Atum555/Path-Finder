@@ -1,0 +1,89 @@
+# Test 1
+Mode:driving
+Source:35
+Destination:81
+
+# Test 2
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:951,774
+AvoidSegments:
+IncludeNode:
+
+# Test 3
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:
+AvoidSegments:(755,1043),(32,832)
+IncludeNode:
+
+# Test 4
+Mode:driving
+Source:53
+Destination:47
+AvoidNodes:212,575
+AvoidSegments:(252,250),(541,609)
+IncludeNode:
+
+# Test 5
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:
+AvoidSegments:
+IncludeNode:7
+
+# Test 6
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:1097,664
+AvoidSegments:(832,32)
+IncludeNode:7
+
+# Test 7
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:37
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:False
+
+# Test 8
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:35
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:False
+
+# Test 9
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:35
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:True
+
+# Test 10
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:35
+AvoidNodes:487,481
+AvoidSegments:(95,461)
+ApproximateOnFail:False
+
+# Test 11
+Mode:driving-walking
+Source:5
+Destination:8
+MaxWalkTime:5
+AvoidNodes:951,1255
+AvoidSegments:
+ApproximateOnFail:True

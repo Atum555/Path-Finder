@@ -1,0 +1,203 @@
+# Empty test
+Incomplete test!
+No mode was given!
+-> Mode:[driving/driving-walking]
+
+
+Invalid Test Name!
+-> "Mode:driving"
+First line of a test is the name and must start with '#'.
+
+
+# Test Invalid mode
+Invalid line!
+-> "Mode:drivang"
+Expected "Mode:[driving/driving-walking]"
+
+
+# Test Invalid source
+Error in line:
+-> "Source:2359"
+Invalid node identifier!
+-> "2359"
+
+
+# Test Invalid source
+Error in line:
+-> "Source:banana"
+Invalid node identifier!
+-> "banana"
+
+
+# Test Invalid destination
+Error in line:
+-> "Destination:2359"
+Invalid node identifier!
+-> "2359"
+
+
+# Test Invalid destination
+Error in line:
+-> "Destination:banana"
+Invalid node identifier!
+-> "banana"
+
+
+# Test Invalid Source and Destination
+Error in line:
+-> "Source:papaia"
+Invalid node identifier!
+-> "papaia"
+
+
+# Test Missing Source
+Incomplete test!
+No source node was given!
+-> Source:[<id>/<code>]
+
+
+# Test Missing Destination
+Incomplete test!
+No destination node was given!
+-> Destination:[<id>/<code>]
+
+
+# Test Missing AvoidNodes
+Invalid line!
+-> "AvoidSegments:"
+Expected "AvoidNodes:[<id>/<code>,...]"
+
+
+# Test Missing AvoidSegments
+Incomplete test!
+No avoid segments list was given!
+-> AvoidSegments:[(<id>/<code>,<id>/<code>),...]
+
+
+# Test Missing IncludeNode
+Incomplete test!
+No include node was given!
+-> IncludeNode:[<id>/<code>]
+
+
+# Test Missing MaxWalkTime
+Incomplete test!
+No max walk time was given!
+-> MaxWalkTime:[<time>]
+
+
+# Test Missing AvoidNodes
+Invalid line!
+-> "AvoidSegments:"
+Expected "AvoidNodes:[<id>/<code>,...]"
+
+
+# Test Missing AvoidSegments
+Incomplete test!
+No avoid segments list was given!
+-> AvoidSegments:[(<id>/<code>,<id>/<code>),...]
+
+
+# Test Missing ApproximateOnFail
+Incomplete test!
+No approximation flag was given!
+-> ApproximateOnFail:[true/false]
+
+
+# Test Extra lines
+Invalid line!
+-> "Idk:extra-line"
+Test should not Contain any more lines.
+
+
+# Test Bad ApproximateOnFail
+Invalid line!
+-> "ApproximateOnFail:Truee"
+Expected "ApproximateOnFail:[true/false]"
+
+
+# Test typo 1
+Invalid line!
+-> "Mowde:driving"
+Expected "Mode:[driving/driving-walking]"
+
+
+# Test typo 2
+Invalid line!
+-> "Souerce:7"
+Expected "Source:[<id>/<code>]"
+
+
+# Test typo 3
+Invalid line!
+-> "Destinsation:1"
+Expected "Destination:[<id>/<code>]"
+
+
+# Test typo 4
+Invalid line!
+-> "MaxWazlkTime:6"
+Expected "MaxWalkTime:[<time>]"
+
+
+# Test typo 5
+Invalid line!
+-> "AvoidNoxdes:34,32,1"
+Expected "AvoidNodes:[<id>/<code>,...]"
+
+
+# Test typo 6
+Invalid line!
+-> "AvoidcSegments:(3,2)"
+Expected "AvoidSegments:[(<id>/<code>,<id>/<code>),...]"
+
+
+# Test typo 7
+Invalid line!
+-> "IncluadeNode:3"
+Expected "IncludeNode:[<id>/<code>]"
+
+
+# Test typo 8
+Invalid line!
+-> "ApproximazteOnFail:True"
+Expected "ApproximateOnFail:[true/false]"
+
+
+# Test bad avoidNodes 1
+Error in line:
+-> "AvoidNodes:34,32,1,,23"
+Invalid node identifier!
+-> ""
+
+
+# Test bad avoidSegments 1
+Invalid line!
+-> "AvoidSegments:(3,2),(2,3"
+Expected "AvoidSegments:[(<id>/<code>,<id>/<code>),...]"
+
+
+# Test bad avoidSegments 2
+Source:7
+Destination:1
+RestrictedDrivingRoute:7,87,657,1108,623,627,664,519,680,279,272,239,566,564,544,594,858,1059,517,899,871,1060,10,269,236,806,1234,1231,1064,3,1064,1231,1244,19,555,329,40,46,832,512,877,683,489,1058,267,774,1043,755,631,1223,951,5,1255,1219,1(169)
+
+
+# Test bad avoidSegments 3
+Invalid line!
+-> "AvoidSegments:(3,2),2,4)"
+Expected "AvoidSegments:[(<id>/<code>,<id>/<code>),...]"
+
+
+# Test bad avoidSegments 4
+Invalid line!
+-> "AvoidSegments:(3,2),(23)"
+Expected "AvoidSegments:[(<id>/<code>,<id>/<code>),...]"
+
+
+# Test bad maxWalkingTime
+Invalid line!
+-> "IncludeNode:3"
+Expected "ApproximateOnFail:[true/false]"
+
+

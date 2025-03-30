@@ -1,0 +1,89 @@
+# Test 1
+Source:35
+Destination:81
+BestDrivingRoute:35,29,37,943,832,229,117,944,166,1208,56,1067,1041,741,1038,1071,1023,839,1068,990,80,263,74,484,59,81(66)
+AlternativeDrivingRoute:35,43,18,594,275,245,261,316,759,1055,631,44,1253,429,72,51,756,217,758,812,809,583,534,62,78,81(119)
+
+
+# Test 2
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,1255,1132,565,1108,623,627,664,519,680,279,294,1055,259,771,761,1058,497,1103,813,32,832,46,938,4(73)
+
+
+# Test 3
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,951,1223,1129,536,1122,252,250,616,613,512,832,46,938,4(50)
+
+
+# Test 4
+Source:53
+Destination:47
+RestrictedDrivingRoute:53,48,867,864,42,1033,570,207,981,252,506,923,1138,479,877,512,832,46,938,4,17,1240,1060,10,16,216,799,428,420,47(82)
+
+
+# Test 5
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,1255,1097,7,1097,1255,5,951,1223,631,755,1043,771,761,1058,497,1103,813,32,832,46,938,4(76)
+
+
+# Test 6
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,1255,414,482,657,87,7,87,657,482,414,1255,5,951,1223,631,755,1043,771,761,1058,489,683,877,512,832,46,938,4(93)
+
+
+# Test 7
+Source:8
+Destination:5
+DrivingRoute:8,487,516,556,885,993,996,618,610,672,571,61,1061,508,279,496,951(46)
+ParkingNode:951
+WalkingRoute:951,5(37)
+TotalTime:83
+
+
+# Test 8
+Source:8
+Destination:5
+DrivingRoute:
+ParkingNode:
+WalkingRoute:
+TotalTime:
+Message:No path from the source to the destination exists with the max walking time constraint of 35 minutes.
+
+
+# Test 9
+Source:8
+Destination:5
+DrivingRoute1:8,487,516,556,885,993,996,618,610,672,571,61,1061,508,279,496,951(46)
+ParkingNode1:951
+WalkingRoute1:951,5(37)
+TotalTime1:83
+DrivingRoute2:8,1227,946,949,286,856,481,9,1097,1255(43)
+ParkingNode2:1255
+WalkingRoute2:1255,5(47)
+TotalTime2:90
+
+
+# Test 10
+Source:8
+Destination:5
+DrivingRoute:
+ParkingNode:
+WalkingRoute:
+TotalTime:
+Message:No path from the source to the destination exists, independente of the walking time.
+
+
+# Test 11
+Source:5
+Destination:8
+DrivingRoute:
+ParkingNode:
+WalkingRoute:
+TotalTime:
+Message:No path from the source to the destination exists, independente of the walking time.
+
+

@@ -1,0 +1,231 @@
+# Empty test
+
+Mode:driving
+Test with no name
+
+# Test Invalid mode
+Mode:drivang
+Source:2
+Destination:3
+
+# Test Invalid source
+Mode:driving
+Source:2359
+Destination:3
+
+# Test Invalid source
+Mode:driving
+Source:banana
+Destination:3
+
+# Test Invalid destination
+Mode:driving
+Source:3
+Destination:2359
+
+# Test Invalid destination
+Mode:driving
+Source:3
+Destination:banana
+
+
+
+# Test Invalid Source and Destination
+Mode:driving
+Source:papaia
+Destination:banana
+
+# Test Missing Source
+Mode:driving
+
+# Test Missing Destination
+Mode:driving
+Source:8
+
+# Test Missing AvoidNodes
+Mode:driving
+Source:3
+Destination:6
+AvoidSegments:
+
+        # Test Missing AvoidSegments
+        Mode:driving
+        Source:7
+        Destination:1
+        AvoidNodes:
+
+# Test Missing IncludeNode
+Mode:driving
+Source:2
+    Destination:3
+AvoidNodes:
+AvoidSegments:
+
+# Test Missing MaxWalkTime
+Mode:driving-walking
+Source:8
+Destination:5
+
+# Test Missing AvoidNodes
+Mode:driving-walking
+Source:3
+Destination:6
+MaxWalkTime:6
+AvoidSegments:
+
+        # Test Missing AvoidSegments
+        Mode:driving-walking
+        Source:7
+        Destination:1
+        MaxWalkTime:6
+        AvoidNodes:
+
+      # Test Missing ApproximateOnFail
+        Mode:driving-walking
+        Source:7
+        Destination:1
+        MaxWalkTime:6
+        AvoidNodes:  
+AvoidSegments:
+
+
+
+# Test Extra lines
+Mode:driving-walking
+Source:3
+Destination:6
+MaxWalkTime:6
+        AvoidNodes:  
+AvoidSegments:
+ApproximateOnFail:True
+Idk:extra-line
+
+
+# Test Bad ApproximateOnFail
+Mode:driving-walking
+Source:7
+Destination:1
+MaxWalkTime:6
+AvoidNodes:  
+AvoidSegments:
+ApproximateOnFail:Truee
+
+# Test typo 1
+Mowde:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2)
+IncludeNode:3
+
+# Test typo 2
+Mode:driving
+Souerce:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2)
+IncludeNode:3
+
+# Test typo 3
+Mode:driving
+Source:7
+Destinsation:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2)
+IncludeNode:3
+
+# Test typo 4
+Mode:driving-walking
+Source:7
+Destination:1
+MaxWazlkTime:6
+AvoidNodes:34,32,1
+AvoidSegments:(3,2)
+
+# Test typo 5
+Mode:driving
+Source:7
+Destination:1
+AvoidNoxdes:34,32,1
+AvoidSegments:(3,2)
+IncludeNode:3
+
+# Test typo 6
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidcSegments:(3,2)
+IncludeNode:3
+
+# Test typo 7
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:
+IncluadeNode:3
+
+# Test typo 8
+Mode:driving-walking
+Source:7
+Destination:1
+MaxWalkTime:6
+AvoidNodes:  
+AvoidSegments:
+ApproximazteOnFail:True
+
+
+# Test bad avoidNodes 1
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1,,23
+AvoidSegments:(3,2)
+IncludeNode:3
+
+
+# Test bad avoidSegments 1
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2),(2,3
+IncludeNode:3
+
+
+# Test bad avoidSegments 2
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:
+IncludeNode:3
+
+
+# Test bad avoidSegments 3
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2),2,4)
+IncludeNode:3
+
+
+# Test bad avoidSegments 4
+Mode:driving
+Source:7
+Destination:1
+AvoidNodes:34,32,1
+AvoidSegments:(3,2),(23)
+IncludeNode:3
+
+
+# Test bad maxWalkingTime 
+Mode:driving-walking
+Source:7
+Destination:1
+MaxWalkTime:6rf
+AvoidNodes:34,32,1
+AvoidSegments:
+IncludeNode:3

@@ -49,7 +49,7 @@ void printCalculating() {
     cout << u8"|█████               |" << endl;
     setScreenColor(Color::Green);
     cout << "25%" << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
     clearLastLine();
     clearLastLine();
 
@@ -57,7 +57,7 @@ void printCalculating() {
     cout << u8"|██████████          |" << endl;
     setScreenColor(Color::Green);
     cout << "50%" << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
     clearLastLine();
     clearLastLine();
 
@@ -65,7 +65,7 @@ void printCalculating() {
     cout << u8"|███████████████     |" << endl;
     setScreenColor(Color::Green);
     cout << "75%" << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
     clearLastLine();
     clearLastLine();
 
@@ -73,7 +73,7 @@ void printCalculating() {
     cout << u8"|███████████████████ |" << endl;
     setScreenColor(Color::Green);
     cout << "99%" << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     clearLastLine();
     clearLastLine();
 
@@ -82,7 +82,7 @@ void printCalculating() {
     setScreenColor(Color::Green);
     cout << "100%" << endl;
     setScreenColor(Color::Clear);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
     clearLastLine();
     clearLastLine();

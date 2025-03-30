@@ -11,6 +11,54 @@
  * class T must have: (i) accessible field int _queueIndex; (ii) operator< defined.
  */
 
+
+
+/**
+ * @class PriorityQueue
+ * @brief A min-heap based priority queue for elements of type T.
+ *
+ * This class manages a collection of pointers to elements of type T, maintaining
+ * the heap property such that the element with the minimum key is always at the root.
+ * It supports insertion, extraction of the minimum element, and decreasing the key
+ * of an existing element.
+ *
+ * @note The type T is expected to support comparison operations required to maintain
+ *       the heap order.
+ *
+ * Public Member Functions:
+ * - PriorityQueue()
+ *   @brief Constructs an empty priority queue.
+ *
+ * - void insert(T *x)
+ *   @brief Inserts the pointer x into the priority queue.
+ *   @param x A pointer to the element to be inserted.
+ *
+ * - T *extractMin()
+ *   @brief Removes and returns the pointer to the element with the minimum key.
+ *   @return Pointer to the element with the minimum key.
+ *
+ * - void decreaseKey(T *x)
+ *   @brief Decreases the key value of the element pointed to by x and updates the heap.
+ *   @param x A pointer to the element whose key is to be decreased.
+ *
+ * - bool empty()
+ *   @brief Checks whether the priority queue is empty.
+ *   @return True if the priority queue is empty; otherwise, false.
+ *
+ * Protected Member Functions:
+ * - void heapifyUp(unsigned i)
+ *   @brief Restores the heap property by moving the element at index i upward.
+ *   @param i The index from which to start the heapify process.
+ *
+ * - void heapifyDown(unsigned i)
+ *   @brief Restores the heap property by moving the element at index i downward.
+ *   @param i The index from which to start the heapify process.
+ *
+ * - inline void set(unsigned i, T *x)
+ *   @brief Sets the element at index i of the heap to the pointer x.
+ *   @param i The index in the heap.
+ *   @param x The pointer to the element to set at the specified index.
+ */
 template <class T>
 class PriorityQueue {
   public:

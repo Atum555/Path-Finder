@@ -19,6 +19,25 @@ bool operator==(const PossiblePath &path1, const PossiblePath &path2) {
     return (path1.walkingPath == path2.walkingPath) and (path1.drivingPath == path2.drivingPath);
 }
 
+/**
+ * @brief Attempts to relax the given edge by potentially updating the destination vertex's distance and path.
+ *
+ * This function performs a relaxation step on the provided edge. It first ensures that the edge is valid (i.e., not a nullptr) and selected.
+ * It then retrieves the origin and destination vertices from the edge. Based on the driving parameter, it selects the appropriate 
+ * distance (driving or walking) from the edge information. If the computed distance from the origin vertex to the destination via this edge 
+ * is shorter than the current distance recorded at the destination vertex, the destination vertex is updated with the new shorter distance 
+ * and the edge is recorded as the current best path.
+ *
+ * @tparam Location the type representing location information.
+ * @tparam Distance the numeric type representing distance.
+ *
+ * @param edge A pointer to the edge to be relaxed. The edge must be non-null and selected.
+ * @param driving A boolean flag indicating whether to use the driving distance (true) or walking distance (false) from the edge's info.
+ *
+ * @return true if the destination vertex's distance was updated; false otherwise.
+ *
+ * @note The time complexity of this function is O(1).
+ */
 bool relaxEdge(Edge<Location, Distance> *edge, bool driving) {
     // Sanity check
     if (edge == nullptr) return false;
@@ -36,6 +55,26 @@ bool relaxEdge(Edge<Location, Distance> *edge, bool driving) {
     return false;
 }
 
+/**
+ * @brief Prepares the graph for a new search by resetting vertex distances, paths, and edge selections.
+ *
+ * This function performs several preparatory steps on the graph:
+ *   - Resets the distance for each vertex to infinity (INF) and clears any existing path pointer.
+ *   - Marks all outgoing edges for each vertex as selected, enabling them for use in the search.
+ *   - For each vertex designated to be avoided (unless it's also included in the allowed nodes),
+ *     it deselects all its incoming and outgoing edges, effectively removing them from the search.
+ *   - Additionally, it deselects a list of specified forbidden edges and their reverse edges.
+ *
+ * @param g Pointer to the Graph object to be prepared. If null, the function exits immediately.
+ * @param nodesToInclude A vector containing pointers to vertices that should always be included in the search,
+ *                       even if they appear in the nodesToAvoid list.
+ * @param nodesToAvoid A vector of vertex pointers that should be avoided by deselecting their connecting edges,
+ *                     except those specified in nodesToInclude.
+ * @param edgesToAvoid A vector of edge pointers that should be explicitly removed from the search by deselecting them
+ *                     along with their reverse counterparts.
+ *
+ * @note Time Complexity: O(|V| + |E|)
+ */
 void prepareGraph(
     Graph<Location, Distance> *g, const vector<Vertex<Location, Distance> *> &nodesToInclude,
     const vector<Vertex<Location, Distance> *> &nodesToAvoid, const vector<Edge<Location, Distance> *> &edgesToAvoid
@@ -69,6 +108,25 @@ void prepareGraph(
     }
 }
 
+/**
+ * @brief Constructs and returns the path from the start vertex to the end vertex.
+ *
+ * This function traces back from the given end vertex using the vertex's stored
+ * predecessor information (retrieved via getPath()) and builds the resulting path. 
+ * The nodes are collected in reverse order, so they are reversed before returning 
+ * to maintain the correct order from start to end.
+ *
+ * Preconditions:
+ * - Both 'start' and 'end' must be valid pointers. If either is nullptr, an empty path is returned.
+ * - There must be a valid path from 'start' to 'end' (i.e., end->getPath() should not be nullptr).
+ *
+ * @param start Pointer to the starting vertex of the path.
+ * @param end Pointer to the ending vertex of the path.
+ *
+ * @return Path object containing the total distance and a sequence of vertices representing the path.
+ *
+ * @note Time Complexity: O(n) where n is the number of vertices in the path.
+ */
 Path getPath(Vertex<Location, Distance> *start, Vertex<Location, Distance> *end) {
     Vertex<Location, Distance> *v = end;
     Path                        path;

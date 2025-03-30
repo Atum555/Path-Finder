@@ -13,11 +13,32 @@ enum PathMode {
     driving_walking,
 };
 
+/**
+ * Skips all consecutive whitespace characters in the given string starting from a specific position.
+ *
+ * This function iterates over the string beginning at position 'pos' and advances the position
+ * past any whitespace characters (determined by isspace, using unsigned char conversion). It continues
+ * until a non-whitespace character is encountered or the end of the string is reached.
+ *
+ * @param str The string to be processed.
+ * @param pos The starting index for processing within the string.
+ * @return The index of the first non-whitespace character found, or str.size() if no such character exists.
+ */
 size_t skipWhitespace(const string &str, size_t pos) {
     while (pos < str.size() && isspace(static_cast<unsigned char>(str[pos]))) ++pos;
     return pos;
 }
 
+/**
+ * @brief Reads all lines from an input file stream.
+ *
+ * This function reads each line from the provided ifstream, trims whitespace from both ends of the line,
+ * and appends the processed line to a vector of strings. It continues until the end of the file is reached.
+ *
+ * @param file Reference to an ifstream object representing the open file to read from.
+ * @return std::vector<std::string> A vector containing all the trimmed lines from the file.
+ * @throws std::runtime_error If an error occurs while reading the file (other than reaching the end of file).
+ */
 vector<string> readAllLines(ifstream &file) {
     vector<string> lines;
     string         line;
@@ -29,6 +50,17 @@ vector<string> readAllLines(ifstream &file) {
     return lines;
 }
 
+/**
+ * Splits a vector of strings into multiple groups based on empty line delimiters.
+ *
+ * This function processes a given list of lines and groups them into individual sections,
+ * where each section is a contiguous group of non-empty lines. An empty line signifies the
+ * end of a current section and starts a new one. If the final section is not terminated by
+ * an empty line, it is still added to the resulting groups.
+ *
+ * @param lines A constant reference to a vector of strings representing the lines to be grouped.
+ * @return A vector of vectors of strings, where each inner vector represents a group of consecutive non-empty lines.
+ */
 vector<vector<string>> splitLinesIntoGroups(const vector<string> &lines) {
     vector<vector<string>> sections;
     vector<string>         currentSection;
@@ -48,22 +80,72 @@ vector<vector<string>> splitLinesIntoGroups(const vector<string> &lines) {
     return sections;
 }
 
+/**
+ * @brief Prints an error message for an invalid input line.
+ *
+ * This function outputs a formatted error message to the provided output stream,
+ * indicating that a specific line is invalid and showing what was expected.
+ *
+ * @param out The output stream where the message is printed.
+ * @param line The input line that failed validation.
+ * @param expected A string describing the expected format or content.
+ */
 void printInvalidLine(ostream &out, const string &line, const string &expected) {
     out << "Invalid line!" << endl << "-> \"" << line << "\"" << endl << "Expected \"" << expected << "\"" << endl;
 }
 
+/**
+ * @brief Prints an error message for an invalid node identifier.
+ *
+ * This function writes an error message to the specified output stream indicating that a node identifier is invalid.
+ * It includes the offending identifier in the message to aid in debugging.
+ *
+ * @param out The output stream where the error message is printed.
+ * @param value The invalid node identifier that triggered the error message.
+ */
 void printInvalidIdentifier(ostream &out, const string &value) {
     out << "Invalid node identifier!" << endl << "-> \"" << value << "\"" << endl;
 }
 
+/**
+ * @brief Outputs an error message for an invalid node identifier or missing edge.
+ *
+ * This function writes a message to the provided output stream indicating that one of the 
+ * given node identifiers is invalid or that the corresponding edge does not exist. It displays 
+ * both identifiers for clarity.
+ *
+ * @param out The output stream where the error message is sent.
+ * @param value A pair of strings containing the problematic node identifiers.
+ */
 void printInvalidIdentifier(ostream &out, const pair<string, string> &value) {
     out << "Invalid node identifier!" << endl;
     out << "-> \"" << value.first << "\" or \"" << value.second << "\"" << endl;
     out << "Or the edge does not exist..." << endl;
 }
 
+/**
+ * Checks if the provided test name string starts with the '#' character.
+ *
+ * @param line A constant reference to the string containing the test name.
+ * @return true if the first character of the string is '#', false otherwise.
+ *
+ * @note This function assumes the string is non-empty.
+ */
 bool validateTestName(const string &line) { return line[0] == '#'; }
 
+/**
+ * @brief Parses a line that contains a key and a value separated by a colon.
+ *
+ * This function checks that the input string contains exactly one colon. If so, it splits
+ * the string into a key (the portion before the colon) and a value (the portion after the colon),
+ * trimming both parts to remove any leading or trailing whitespace.
+ *
+ * @param line The input string expected to be in "key: value" format.
+ * @param key Reference to a string where the trimmed key will be stored.
+ * @param value Reference to a string where the trimmed value will be stored.
+ * @return true If the input string has exactly one colon and parsing is successful.
+ * @return false If the input string does not contain exactly one colon.
+ */
 bool parseKeyValue(const string &line, string &key, string &value) {
     if (count(line.begin(), line.end(), ':') != 1) return false;
     size_t pos = line.find(':');
@@ -74,6 +156,26 @@ bool parseKeyValue(const string &line, string &key, string &value) {
     return true;
 }
 
+/**
+ * @brief Parses and validates identifiers of nodes to avoid in the graph.
+ *
+ * This function takes a comma-separated list of node identifiers given in the string 
+ * "identifiers", splits them into tokens, and then tries to find each corresponding vertex 
+ * in the provided graph. For every identifier, it adds the found vertex (or nullptr if not found)
+ * to the avoidNodes vector.
+ *
+ * If any identifier does not correspond to a valid vertex in the graph, the function prints 
+ * an error message to the provided output stream "out", including the original input line for 
+ * context, and returns false. Should all identifiers be valid, the function returns true.
+ *
+ * @param graph         Pointer to the Graph containing nodes of type Location and edges of type Distance.
+ * @param avoidNodes    Reference to a vector where vertex pointers corresponding to identifiers will be stored.
+ * @param line          The original input line being processed (used for error messages).
+ * @param identifiers   A comma-separated string containing the identifiers of nodes to avoid.
+ * @param out           Output stream to which error messages are written.
+ *
+ * @return true if all identifiers correspond to valid vertices in the graph, false otherwise.
+ */
 bool parseAvoidNodes(
     Graph<Location, Distance> *graph, vector<Vertex<Location, Distance> *> &avoidNodes, const string &line,
     const string &identifiers, ostream &out
@@ -99,6 +201,30 @@ bool parseAvoidNodes(
     return true;
 }
 
+/**
+ * @brief Parses and retrieves edges to be avoided from a given identifiers string.
+ * 
+ * This function takes a string containing pairs of node identifiers formatted as 
+ * "([id1], [id2])", where each pair represents an edge to avoid in the graph. It uses 
+ * a regular expression to parse these pairs, skipping any unnecessary whitespace and 
+ * commas. For each valid pair, it attempts to find the corresponding edge in the provided 
+ * graph using the findEdge function. If the edge is found, it is added to the avoidSegments 
+ * vector; if not, an error message is printed to the output stream along with the original 
+ * input line, and the function returns false.
+ * 
+ * The expected input format for the identifiers string is:
+ * "([<id>/<code>,<id>/<code>), ...]"
+ * 
+ * @param graph Pointer to the graph containing the locations and distances.
+ * @param avoidSegments A reference to a vector that will store pointers to the edges 
+ *                      representing segments to be avoided.
+ * @param line The original input text line, used for error reporting.
+ * @param identifiers The string containing pairs of node identifiers to parse.
+ * @param out The output stream used to print error messages.
+ * 
+ * @return true if all pairs are parsed correctly and the corresponding edges are found;
+ *         false if any error occurs during parsing or if an edge is not found in the graph.
+ */
 bool parseAvoidSegmentes(
     Graph<Location, Distance> *graph, vector<Edge<Location, Distance> *> &avoidSegments, const string &line,
     const string &identifiers, ostream &out
@@ -156,6 +282,35 @@ bool parseAvoidSegmentes(
     return true;
 }
 
+/**
+ * @brief Executes a test scenario for route planning based on provided configuration lines.
+ *
+ * This function processes a series of configuration commands contained in a vector of strings,
+ * constructing and validating a test scenario intended to compute optimal routes on a given graph.
+ * The test configuration includes the following steps:
+ *
+ * 1. Test Name: Validates the test name (the first line) must start with a '#' symbol.
+ * 2. Mode: Determines the travel mode ("driving" or "driving-walking").
+ * 3. Source Node: Parses and validates the source node identified by its id or code.
+ * 4. Destination Node: Parses and validates the destination node.
+ * 5. Driving Mode (Simple): If in "driving" mode and no additional parameters are provided,
+ *    computes and outputs both best and alternative driving routes.
+ * 6. Driving-Walking Mode (Extended): 
+ *    - Parses the maximum allowed walking time.
+ *    - Parses the list of nodes and segments to avoid.
+ *    - Optionally processes a flag for approximating the route if constraints cannot be met.
+ *    - Computes appropriate driving and walking segments and outputs the routes and total travel time.
+ * 7. Restricted Driving: In "driving" mode with additional parameters, computes a route that respects
+ *    avoidance and mandatory inclusion of a specific node.
+ * 8. Extra Lines: Detects unexpected extra input and outputs an error message.
+ *
+ * Each stage involves parsing key-value pairs, validation of input, and error handling through
+ * appropriate messages to the output stream.
+ *
+ * @param test  A vector of strings, each representing a line of configuration for the test scenario.
+ * @param graph Pointer to the graph structure containing vertices and edges used for route calculations.
+ * @param out   Output stream where results, route details, and error messages are printed.
+ */
 void runTest(const vector<string> &test, Graph<Location, Distance> *graph, ostream &out) {
     // Sanity check
     if (not test.size()) return;
@@ -602,6 +757,17 @@ void runTest(const vector<string> &test, Graph<Location, Distance> *graph, ostre
     return;
 }
 
+/**
+ * @brief Executes batch mode processing on a graph using test cases read from an input file.
+ *
+ * This function reads all lines from the given input file, groups them into individual test cases 
+ * using splitLinesIntoGroups, and processes each test case with runTest. The results are written to 
+ * the provided output stream, with extra newlines separating each test case's output.
+ *
+ * @param graph Pointer to a Graph object containing Location nodes and Distance weights. The function does nothing if this is nullptr.
+ * @param inputFile Reference to an ifstream from which the test cases are read. The function does nothing if the stream is not valid.
+ * @param out Reference to an ostream where the results for each test case are output. The function does nothing if the stream is not valid.
+ */
 void runBatchMode(Graph<Location, Distance> *graph, ifstream &inputFile, ostream &out) {
     // Sanity check
     if (graph == nullptr) return;

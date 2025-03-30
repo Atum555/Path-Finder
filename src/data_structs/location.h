@@ -3,6 +3,24 @@
 
 #include <string>
 
+/**
+ * @class Location
+ * @brief Represents a physical location with associated details.
+ *
+ * This class encapsulates information about a location, including:
+ *   - A unique identifier.
+ *   - A specific code representing the location.
+ *   - A descriptive string detailing the location.
+ *   - A boolean flag indicating the availability of parking.
+ *
+ * The constructor initializes a Location instance by accepting values for these attributes.
+ *
+ * Member Functions:
+ *   - getId() returns the unique identifier.
+ *   - getCode() returns the location-specific code.
+ *   - getLocation() returns the descriptive text of the location.
+ *   - hasParking() indicates whether parking is available.
+ */
 class Location {
   public:
     Location(const std::string &id, const std::string &code, const std::string &location, bool parking)

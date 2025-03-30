@@ -8,6 +8,40 @@
 
 using namespace std;
 
+/**
+ * @brief Parses location and distance data files and constructs a graph.
+ *
+ * This function reads two CSV files: one containing location details and
+ * another containing distance information between locations. It creates a
+ * graph where each vertex represents a location and each bidirectional edge
+ * represents the distance (walking and driving) between two locations.
+ *
+ * The function performs the following steps:
+ * 1. Reads and ignores the header line of the locations file.
+ * 2. For each subsequent line in the locations file:
+ *    - Parses the location name, id, code, and parking availability.
+ *    - Trims whitespace from each parsed token.
+ *    - Creates a Location object and adds it as a vertex in the graph.
+ *
+ * 3. Reads and ignores the header line of the distances file.
+ * 4. For each subsequent line in the distances file:
+ *    - Parses two location codes, the driving distance, and the walking distance.
+ *    - Replaces the driving distance with INF if the token equals "X".
+ *    - Trims whitespace for each parsed token.
+ *    - Uses the location codes to locate their corresponding vertices in the graph.
+ *    - Adds a bidirectional edge between the vertices with the associated Distance data.
+ *
+ * @param locations An input file stream containing location data
+ *                  (format: location, id, code, parking flag).
+ * @param distances An input file stream containing distance data
+ *                  (format: code1, code2, driving distance/token "X", walking distance).
+ *
+ * @return Graph<Location, Distance>* Pointer to the constructed graph.
+ *
+ * @note The memory allocated for the graph is managed by the caller.
+ * @note This function uses helper functions such as trim() for whitespace removal
+ *       and findVertex() for locating graph vertices by location code.
+ */
 Graph<Location, Distance> *parseDataFiles(ifstream &locations, ifstream &distances) {
     // Create Graph
     Graph<Location, Distance> *graph = new Graph<Location, Distance>();

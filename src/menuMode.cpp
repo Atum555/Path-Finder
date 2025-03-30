@@ -17,13 +17,43 @@ enum RouteType {
 
 enum Color { Clear, Red, Cyan, Green, Grey, Yellow };
 
+/**
+ * @brief Clears the terminal screen.
+ *
+ * This function sends ANSI escape sequences to clear the entire terminal
+ * output and resets the cursor position to the top-left corner.
+ */
 void clearScreen() { cout << "\033[2J\033[1;1H"; }
 
+/**
+ * @brief Clears the last displayed line in the console.
+ *
+ * This function moves the cursor up one line, returns to the beginning of that line,
+ * and erases all characters in it. It is useful for updating or removing the most
+ * recently printed line from the terminal.
+ */
 void clearLastLine() {
     // Move cursor up one line, return to beginning, and clear line
     cout << "\033[A\r\033[K";
 }
 
+/**
+ * @brief Sets the terminal text color.
+ *
+ * This function outputs an ANSI escape sequence to change the terminal's text 
+ * color based on the provided Color enumerator. Each supported color maps to 
+ * a specific ANSI code. If an unsupported color is provided, the default color 
+ * is restored.
+ *
+ * Supported Colors:
+ * - Color::Red:    Sets the text color to red.
+ * - Color::Cyan:   Sets the text color to cyan.
+ * - Color::Green:  Sets the text color to green.
+ * - Color::Grey:   Sets the text color to grey.
+ * - Color::Yellow: Sets the text color to yellow.
+ *
+ * @param color The desired text color as defined in the Color enum.
+ */
 void setScreenColor(Color color) {
     switch (color) {
     case Color::Red   : cout << "\033[31m"; break;
@@ -36,10 +66,32 @@ void setScreenColor(Color color) {
     }
 }
 
+/**
+ * @brief Reads a line of text from an input stream.
+ *
+ * This function attempts to read a line from the provided input stream and
+ * stores it in the given string. If reading fails (e.g., due to end-of-file or an error),
+ * the function terminates the program using exit(EXIT_SUCCESS).
+ *
+ * @param in The input stream to read from.
+ * @param line The string where the read line will be stored.
+ */
 void readLine(istream &in, string &line) {
     if (not getline(in, line)) exit(EXIT_SUCCESS);
 }
 
+/**
+ * @brief Displays a progress bar for calculating paths.
+ *
+ * This function simulates the progress of a path calculation by printing a multi-stage
+ * progress bar to the console. It displays several intermediate stages (25%, 50%, 75%, 99%, and 100%)
+ * with corresponding visual indicators and colors. At each stage, the function delays for a short
+ * period using std::this_thread::sleep_for and clears the previous lines to update the visual progress.
+ *
+ * The function uses different colors (Cyan, Red, Yellow, Green) to emphasize different stages of the progress.
+ *
+ * @note This function does not return any value.
+ */
 void printCalculating() {
     setScreenColor(Color::Cyan);
     cout << endl << "-- Calculating paths --" << endl;
@@ -89,6 +141,16 @@ void printCalculating() {
     clearLastLine();
 }
 
+/**
+ * @brief Prints the details of a given path, including its number, node count, node sequence, and total distance.
+ *
+ * This function outputs the path number, the count of nodes present in the path, the sequence of node IDs
+ * (formatted with arrows between them, except after the last node), and the total distance of the path.
+ * It uses different screen colors to highlight various parts of the output for better readability.
+ *
+ * @param path The path object that contains the nodes and the distance.
+ * @param pathNumber An identifier for the path, used in the output to denote the path number.
+ */
 void printPath(const Path &path, int pathNumber) {
     setScreenColor(Color::Cyan);
     cout << endl << "Path number: " << pathNumber << endl;
@@ -117,6 +179,23 @@ void printPath(const Path &path, int pathNumber) {
     setScreenColor(Color::Clear);
 }
 
+/**
+ * @brief Outputs detailed information about a given pair of paths.
+ *
+ * This function takes a pair of Path objects representing two segments of a journey.
+ * The first Path is treated as the driving route, and the second as the walking route.
+ * It calculates and prints the total number of nodes from both segments. Additionally,
+ * it displays the sequence of node IDs for the driving route, followed by a marker
+ * indicating the transition (i.e., "(Park)"), and then the node IDs for the walking route.
+ *
+ * Each segment of the node sequence is printed with visual cues by changing the console's
+ * text color, enhancing readability. The function also outputs the distances associated
+ * with the driving and walking segments, as well as the total distance (the sum of both).
+ *
+ * @param path A constant reference to a pair of Path objects where:
+ *             - path.first corresponds to the driving segment.
+ *             - path.second corresponds to the walking segment.
+ */
 void printPath(const pair<Path, Path> &path) {
     cout << "Path has ";
     setScreenColor(Color::Green);
@@ -167,6 +246,29 @@ void printPath(const pair<Path, Path> &path) {
     setScreenColor(Color::Clear);
 }
 
+/**
+ * @brief Displays and manages the interactive route planning menu.
+ *
+ * This function implements a continuous loop that presents an interactive menu
+ * for planning routes on a graph by configuring various parameters such as:
+ *   - Route type selection (Walking, Driving, or Combined Driving + Walking).
+ *   - Specifying nodes to include in the route by their IDs or codes.
+ *   - For Combined routes, selecting source and destination nodes.
+ *   - Entering a maximum walking time constraint for combined routes.
+ *   - Specifying nodes and segments to avoid during path computation.
+ *   - Inputting the maximum number of distinct paths to display.
+ *
+ * The function uses helper routines for:
+ *   - Reading and processing user input.
+ *   - Displaying colored text and clearing screen lines.
+ *   - Finding vertices and edges in the provided graph.
+ *   - Calculating and printing the resulting paths based on the given criteria.
+ *
+ * User interactions allow for clearing lists, quitting to the main menu, or exiting
+ * the application, ensuring a flexible and dynamic route planning experience.
+ *
+ * @param graph A pointer to a Graph object containing nodes and edges used for route planning.
+ */
 void runMenuMode(Graph<Location, Distance> *graph) {
     while (true) {
         clearScreen();

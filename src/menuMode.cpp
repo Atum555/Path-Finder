@@ -788,7 +788,7 @@ void runMenuMode(Graph<Location, Distance> *graph) {
                         bool printApproximation = false;
                         do {
                             setScreenColor(Color::Cyan);
-                            cout << "Do you want to see the best and second best possible paths? ";
+                            cout << "Do you want to see the best and second best possible paths? (y/n) ";
                             setScreenColor(Color::Clear);
 
                             string input;
@@ -848,7 +848,7 @@ void runMenuMode(Graph<Location, Distance> *graph) {
             // Get input
             do {
                 setScreenColor(Color::Cyan);
-                cout << "Do you want to find more paths? ";
+                cout << "Do you want to find more paths? (y/n) ";
                 setScreenColor(Color::Clear);
 
                 string input;

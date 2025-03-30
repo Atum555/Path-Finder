@@ -1,0 +1,68 @@
+# Test 1
+Mode:driving
+Source:3
+Destination:8
+
+# Test 2
+Mode:driving
+Source:8
+Destination:1
+
+# Test 3
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:2
+AvoidSegments:
+IncludeNode:
+
+# Test 4
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:
+AvoidSegments:(3,2),(7,8)
+IncludeNode:
+
+# Test 5
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:2
+AvoidSegments:(4,7)
+IncludeNode:
+
+# Test 6
+Mode:driving
+Source:5
+Destination:4
+AvoidNodes:
+AvoidSegments:
+IncludeNode:7
+
+# Test 7
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:18
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:True
+
+# Test 8
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:5
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:False
+
+# Test 9
+Mode:driving-walking
+Source:8
+Destination:5
+MaxWalkTime:5
+AvoidNodes:
+AvoidSegments:
+ApproximateOnFail:True

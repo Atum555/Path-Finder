@@ -1,0 +1,70 @@
+# Test 1
+Source:3
+Destination:8
+BestDrivingRoute:3,2,4,8(19)
+AlternativeDrivingRoute:3,7,8(34)
+
+
+# Test 2
+Source:8
+Destination:1
+BestDrivingRoute:8,4,2,1(24)
+AlternativeDrivingRoute:none
+
+
+# Test 3
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+# Test 4
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,4(62)
+
+
+# Test 5
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+# Test 6
+Source:5
+Destination:4
+RestrictedDrivingRoute:5,3,7,8,4(52)
+
+
+# Test 7
+Source:8
+Destination:5
+DrivingRoute:8,4,2,3(19)
+ParkingNode:3
+WalkingRoute:3,5(10)
+TotalTime:29
+
+
+# Test 8
+Source:8
+Destination:5
+DrivingRoute:
+ParkingNode:
+WalkingRoute:
+TotalTime:
+Message:No path from the source to the destination exists with the max walking time constraint of 5 minutes.
+
+
+# Test 9
+Source:8
+Destination:5
+DrivingRoute1:8,4,2,3(19)
+ParkingNode1:3
+WalkingRoute1:3,5(10)
+TotalTime1:29
+DrivingRoute2:8,4,6(21)
+ParkingNode2:6
+WalkingRoute2:6,5(10)
+TotalTime2:31
+
+

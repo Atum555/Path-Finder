@@ -1,0 +1,13 @@
+Location1, Location2, Driving, Walking
+TR1      , CA1      , 10     ,      20
+TR1      , BL1      , X      ,      15
+CA1      , BL1      , 5      ,       8
+CA1      , AL1      , 8      ,      25
+BL1      , SE1      , 12     ,      10
+BL1      , FZ1      , 20     ,      25
+SE1      , RB1      , X      ,      10
+AL1      , RB1      , 15     ,      30
+AL1      , FZ1      , 30     ,      50
+FZ1      , RB1      , X      ,      12
+AL1      , CL1      , 6      ,      18
+FZ1      , CL1      , 14     ,      20

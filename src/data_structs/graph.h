@@ -77,9 +77,9 @@ class Edge {
     void setSelected(bool selected);
 
   protected:
-    W             _info;
     Vertex<T, W> *_origin;
     Vertex<T, W> *_destination;
+    W             _info;
 
     bool _selected = false;
 

@@ -432,7 +432,10 @@ void runMenuMode(Graph<Location, Distance> *graph) {
             if (goBackToMenu) continue;
 
             clearLastLine();
-            cout << "Max walking time set to: " << maxWalkTime << endl;
+            cout << "Max walking time set to: ";
+            setScreenColor(Color::Green);
+            cout << maxWalkTime << endl;
+            setScreenColor(Color::Clear);
         }
 
         //! Avoid Nodes

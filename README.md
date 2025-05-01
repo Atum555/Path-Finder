@@ -1,30 +1,31 @@
-## Features
+# Path Finder
 
--   Menu
+This is a project for a class on Algorithm Design at FEUP.\
+The goal was to write a program that interpretes data files, builds an internal representation of an Undirected Weighted Graph, and then answer to user inputted question.\
+The program has an interactive mode and a file mode.
 
-    -   Shows all of the available functionalities
-    -   Main entry point to the app
+### Usage
 
--   Read and Parse Data
+The 2 necessary data files must be given, first locations then distances.\
+If no more arguments are given the program runs in interactive mode.\
+Otherwise an input file and optionally an output file can be given to run in file mode.
 
-    -   Select files
-    -   Parse files
-    -   Request options
+```
+./program <locations.csv> <distances.csv> [<input.txt> [<output.txt>]]
+```
 
--   Batch mode
+### Extras
 
-    -   Read from Input
-    -   Write onto Output
+This project also contains some example data files, some inputs for those files (well and mal-formed inputs) and theirs expected outputs.\
+There's also html doxygen documentation.
 
--   Doxygen Documentation
+## File Mode
 
-    -   Must include Time Complexity for algorithms
+> Write inputs on a file. Each input should have a name in a line staring with '#' followed by one of the the Input Formats available.
 
 -   Route planning - Driving mode - No restrictions
 
-    -   2 Independent paths for driving
-
-    -   Parse input
+    -   Input Format
 
     ```
     Mode:driving
@@ -32,7 +33,7 @@
     Destination:<id>
     ```
 
-    -   Print output
+    -   Output Format
 
     ```
     Source:<id>
@@ -43,11 +44,7 @@
 
 -   Route planning - Driving mode - Restrictions
 
-    -   Exclude nodes
-    -   Exclude segments
-    -   Include a node (a stop on the way)
-
-    -   Parse input
+    -   Input Format
 
     ```
     Mode:driving
@@ -58,7 +55,7 @@
     IncludeNode:<id>
     ```
 
-    -   Print output
+    -   Output Format
 
     ```
     Source:<id>
@@ -68,10 +65,7 @@
 
 -   Route planning - Driving-Walking mode
 
-    -   Shortest time
-    -   On collision longest walk wins
-    -   On fail indicate reason, max walk time and/or no parking found
-    -   Parse input
+    -   Input Format
 
     ```
     Mode:driving-walking
@@ -80,9 +74,10 @@
     MaxWalkTime:<int>
     AvoidNodes:<id>,<id>,...
     AvoidSegments:(id,id),(id,id),...
+    ApproximateOnFail:[True/False]
     ```
 
-    -   Print output
+    -   Output Format
 
     ```
     Source:<id>
@@ -93,7 +88,7 @@
     TotalTime:<int>
     ```
 
-    -   Print error
+    -   Error Format
 
     ```
     Source:<id>
@@ -105,7 +100,7 @@
     Message:<string>
     ```
 
-    -   Print approximate solution
+    -   Approximate Solution Format
 
     ```
     Source<id>
@@ -119,32 +114,3 @@
     WalkingRoute2:<id>,<id>,<id>({total time})
     TotalTime2:<int>
     ```
-
-## Plan
-
--   Main function
-
-    -   Program entry point
-    -   Parse arguments
-    -   Call function to parse data files
-    -   Decide who to call (menu / batch mode)
-
--   Data files parse function
-
-    -   Parse data files
-    -   Generate graph
-
--   Batch mode function
-
-    -   Interprete input.txt file
-    -   Execute algorithms to get answer
-    -   Print output
-
--   Menu function
-    -   Show available options [driving, driving-walking]
-    -   Ask to select start node
-    -   Ask to select destination node
-    -   Ask restrictions...
-    -   Execute algorithms to get answer
-    -   Print output
-    -   Loop to start
